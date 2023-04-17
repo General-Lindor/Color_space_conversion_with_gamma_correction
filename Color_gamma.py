@@ -1,3 +1,5 @@
+#MY OWN MATHEMATICAL CREATION - IT'S A BEAUTY :)
+
 from vectors import matrix, vector
 import math
 
@@ -101,24 +103,3 @@ class hsl(vector):
         blue = result[2]
         
         return rgb(red, green, blue)
-
-def test(r, g, b):
-    print("")
-    x = rgb(r, g, b)
-    y = x.hsl().rgb()
-    print("Color: ", str((r, g, b)))
-    err = (abs((y - x) / vector((max(x[0], 1 - x[0]), max(x[1], 1 - x[1]), max(x[2], 1 - x[2])))).dot(vector((1, 1, 1)))) * 100
-    print("Percentage Total Error: " + repr(err) + "%")
-    err = (abs(y.angle(x)) / (2 * math.pi)) * 100
-    print("Percentage Angle Error: " + repr(err) + "%")
-    err = (abs(y.length() - x.length()) / x.length()) * 100
-    print("Percentage Length Error: " + repr(err) + "%")
-
-#test(0, 0, 0)
-test(1, 0, 0)
-test(0, 1, 0)
-test(1, 1, 0)
-test(0, 0, 1)
-test(1, 0, 1)
-test(0, 1, 1)
-test(1, 1, 1)
