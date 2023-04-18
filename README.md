@@ -23,7 +23,7 @@
       Base script for multidimensional analysis; could have been done using numpy which would probably have been faster, but i wanted to do it myself and no dependencies.
   
     interpolateWave.py:
-      Used to figure out a smooth graph for the lightness(hue) relation in Visualization.docx (see https://www.desmos.com/calculator/v9xdatkkbx)
+      Used to figure out a smooth graph for the lightness(hue) relation in Visualization.docx (see https://www.desmos.com/calculator/kaf9f5bdub )
     
     test.py:
       Used to test the four models.

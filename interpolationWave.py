@@ -6,37 +6,28 @@ Created on Mon Apr 17 13:17:56 2023
 """
 
 #POI = points of interest
-#make sure 0<=x<1 for all POI keys
-def interpolateWave(x, POI):
+def interpolateWave(x, POI, wavelength):
     
     keys = list(POI.keys())
     values = list(POI.values())
     items = list(POI.items())
     
-    y_s = 0
-    for y in values:
-        y_s += y
-    y_s /= len(values)
-    
-    p = 2 * math.pi
-    
-    result = y_s
-    for key, value in items:
+    y_average = 0
+    for y_i in values:
+        y_average += y_i
+    y_average /= len(values)
+    pi = wavelength * math.pi
+    y = y_average
+    for i in range(len(items)):
+        key, value = items[i]
         Dividend = 1
-        Divisor = 2
-        for otherKey in keys:
-            
-            #This would be ideal but floats are too imprecise for that:
-            #if abs(key - otherKey) % 0.5 != 0:
-            
-            #This is what we do instead:
-            if abs((abs(key - otherKey) % 0.5) - 0) <= 0.001:
-                
+        Divisor = 1
+        for j in range(len(items)):
+            if i != j:
                 otherKey = (items[j])[0]
-                Dividend *= math.sin(p * (x - otherKey))
-                Divisor *= math.sin(p * (key - otherKey))
-        
-        summand = (value - y_s) * (Dividend / Divisor) * (math.cos(p * (x - key)) + math.cos(2 * p * (x - key)))
-        result += summand
+                Dividend *= math.sin(pi * (x - otherKey))
+                Divisor *= math.sin(pi * (key - otherKey))
+        summand = (value - y_average) * (Dividend / Divisor) * math.cos(pi * (x - key))
+        y += summand
     
-    return result
+    return y
