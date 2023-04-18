@@ -1,6 +1,6 @@
 #MY OWN MATHEMATICAL CREATION - IT'S A BEAUTY :)
 
-from vectors import matrix, vector
+from Scripts.vectors import matrix, vector
 import math
 
 class rgb(vector):

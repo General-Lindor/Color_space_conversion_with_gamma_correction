@@ -7,7 +7,7 @@ Created on Sun Apr 16 11:17:03 2023
 
 #STANDARD RGB-HSL MODEL FROM WIKIPEDIA
 
-from vectors import matrix, vector
+from Scripts.vectors import matrix, vector
 import math
 
 class rgb(vector):
