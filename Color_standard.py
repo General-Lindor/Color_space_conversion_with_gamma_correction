@@ -30,34 +30,37 @@ class rgb(vector):
         saturation = (MAX - MIN) / (1 - abs(MAX + MIN - 1))
         
         #HUE
-        cs = self - MIN
-        cs /= max(cs)
-        idx = min((val, idx) for (idx, val) in enumerate(cs))[1]
-        if idx == 0:
-            if cs[1] < cs[2]:
-                #0x1
-                hue = (2 / 3) - (cs[1] / 6)
+        try:
+            cs = self - min(self)
+            cs /= max(cs)
+            idx = min((val, idx) for (idx, val) in enumerate(cs))[1]
+            if idx == 0:
+                if cs[1] < cs[2]:
+                    #0x1
+                    hue = (2 / 3) - (cs[1] / 6)
+                else:
+                    #01x
+                    hue = (1 / 3) + (cs[2] / 6)
+            elif idx == 1:
+                if cs[0] < cs[2]:
+                    #x01
+                    hue = (2 / 3) + (cs[0] / 6)
+                else:
+                    #10x
+                    hue = 1 - (cs[2] / 6)
+            elif idx == 2:
+                if cs[0] < cs[1]:
+                    #x10
+                    hue = (1 / 3) - (cs[0] / 6)
+                else:
+                    #1x0
+                    hue = 0 + (cs[1] / 6)
             else:
-                #01x
-                hue = (1 / 3) + (cs[2] / 6)
-        elif idx == 1:
-            if cs[0] < cs[2]:
-                #x01
-                hue = (2 / 3) + (cs[0] / 6)
-            else:
-                #10x
-                hue = 1 - (cs[2] / 6)
-        elif idx == 2:
-            if cs[0] < cs[1]:
-                #x10
-                hue = (1 / 3) - (cs[0] / 6)
-            else:
-                #1x0
-                hue = 0 + (cs[1] / 6)
-        else:
-            raise Exception("minColorError")
-        if hue >= 1:
-            hue = 0
+                raise Exception("minColorError")
+            if hue >= 1:
+                hue = 0
+        except:
+            hue = 0.5
         
         return hsl(hue, saturation, lightness)
 

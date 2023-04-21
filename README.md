@@ -56,3 +56,16 @@ Used to test the four models.
 ### ColorSpaceVisualization.py: ###
 
 Used to create the third column Visualization.docx
+
+
+## benchmark: ##
+Converting 1.000.000 colors from RBG to HSL back to RGB took:
+
+12,8889956474304 sec on Wikipedia (with dozens of critical Errors and incorrect Conversions)
+16,6697604656219 sec on Standard
+17,5525200366973 sec on Hybrid
+18,2096807956695 sec on Hybrid with Gamma Correction
+202,453838348388 sec on Mathematical with Gamma Correction
+205,670036077499 sec on Mathematical
+
+I'd suggest to choose between Standard and Hybrid in a production situation. The other models are mostly there for learning purpose.
