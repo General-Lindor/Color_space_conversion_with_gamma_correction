@@ -47,7 +47,7 @@ could have been done using numpy which would probably have been faster, but i wa
   
 ### interpolateWave.py ###
 
-Used to figure out a smooth graph for the lightness(hue) relation in Visualization.docx
+Used to figure out a smooth graph for the lightness(hue) relation in Visualization.docx  
 See https://www.desmos.com/calculator/kaf9f5bdub for more.
     
 ### test.py ###
