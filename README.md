@@ -24,6 +24,17 @@ Serves as a base for applying gamma correction.
 
 Based on the Mathematical model.
 Convert from RGB to HSL and from HSL to RGB, both with gamma correction, in a mathematically correct way.
+ 
+### Hybrid: ###
+
+Combines the advantages of mathematical and standard.
+Like Standard, Hue is a color hexagon instead of a color wheel.
+Lightness and Saturation are calculated exactly the same way as in mathematical.
+Basically for the human eye it looks the same as mathematical, but it is much faster.
+ 
+### Hybrid with Gamma Correction: ###
+
+Combines the Hybrid model with Gamma Correction.
   
   
 ## Scripts: ##

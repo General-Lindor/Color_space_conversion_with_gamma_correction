@@ -32,18 +32,7 @@ class rgb(vector):
         
         s_0 = 1 - (min(self) / lightness)
         s_1 = (max(self) - lightness) / (1 - lightness)
-        
-        #we search for the smallest value of (s_0, s_1) that is greater than 0
-        if s_0 > 0:
-            if s_1 > 0:
-                saturation = min(s_0, s_1)
-            else:
-                saturation = s_0
-        elif s_1 > 0:
-            saturation = s_1
-        else:
-            #this should never happen, but just in case...
-            saturation = max(s_0, s_1)
+        saturation = max(s_0, s_1)
         
         l_vec = vector((lightness, lightness, lightness))
         s_vec = self - l_vec

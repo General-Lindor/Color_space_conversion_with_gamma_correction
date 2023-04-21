@@ -16,7 +16,7 @@ def interpolateWave(x, POI, wavelength):
     for y_i in values:
         y_average += y_i
     y_average /= len(values)
-    pi = wavelength * math.pi
+    pi = math.pi / wavelength
     y = y_average
     for i in range(len(items)):
         key, value = items[i]

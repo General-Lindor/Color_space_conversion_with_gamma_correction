@@ -1,7 +1,9 @@
 #from Color_wikipedia import rgb, hsl
 #from Color_standard import rgb, hsl
 #from Color_math import rgb, hsl
-from Color_gamma import rgb, hsl
+#from Color_gamma import rgb, hsl
+#from Color_hybrid import rgb, hsl
+from Color_hybridGamma import rgb, hsl
 
 def test(r, g, b):
     print("")
@@ -34,3 +36,6 @@ test(1, 1, 1)
 #RANDOM
 test(0.2, 0.6, 0.75)
 test(0.2, 0.7, 1)
+test(0.2, 0.5, 0.75)
+test(0.252, 0.265, 0.462372355)
+test(0.39369, 0.9733, 0.6373)
