@@ -4,7 +4,7 @@
  Numbers range from 0 to 1, both for R, G, B, H, S and L.
  
 ## Models: ##
-### Wikipedia
+### Wikipedia ###
 
 This model is driven directly from the conversion formulae you can find on the HSL wikipedia page;
 https://en.wikipedia.org/wiki/HSL_and_HSV
