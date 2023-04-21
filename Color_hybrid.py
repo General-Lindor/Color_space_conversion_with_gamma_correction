@@ -7,7 +7,7 @@ Created on Thu Apr 20 11:51:22 2023
 
 #HYBRID - Combines formula consistency advantage of mathematical model for lightness and saturation with computational speed advantage for hue calculation of standard model
 
-from vectors import matrix, vector
+from Scripts.vectors import matrix, vector
 import math
 
 class rgb(vector):
