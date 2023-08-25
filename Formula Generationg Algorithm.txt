@@ -1,0 +1,10 @@
+step 0. choose a lightness formula
+step 1. calc maximum reachable MAX-MIN - distance for current lightness (called d)
+step 2. saturation_wrong_dist_range = (MAX - MIN) / d   ---d is dependent on lightness!
+step 3. solve equation system for MAX and MIN
+step 4. set 0<MAX<1 and solve double inequality for Saturation. Boundaries are called L4 and U4 (for lowerbound and upperbound)
+step 5. set 0<MIN<1 and solve double inequality for Saturation. Boundaries are called L5 and U5 (for lowerbound and upperbound)
+step 6. LB = min(U4, U5); UB = max(U4, U5)
+step 7. saturation = ((UB - LB) * saturation_wrong_range) + LB
+
+Keep in mind that both LB and UB are probably dependent on lightness. Either that or they're constant.
