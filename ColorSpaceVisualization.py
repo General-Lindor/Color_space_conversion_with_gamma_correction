@@ -27,7 +27,7 @@ def main(hsl, name, last = False):
             col = tuple(map(conv, hsl(hue / size, 1, lightness / size).rgb()))
             data[size - lightness - 1, hue] = [col[0], col[1], col[2]]
     image = Image.fromarray(data)
-    image.save("C:\\Users\\admin\\Pictures\\ColorSpaceVisualization\\" + name + ".png")
+    image.save("C:\\Users\\Jean-Luc Picard\\Pictures\\ColorSpaceVisualization\\" + name + ".png")
     image.show()
     print(name + " done.")
 
