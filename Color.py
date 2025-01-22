@@ -137,6 +137,27 @@ class hsl(vector):
             b = rgb.vBlue
             c = rgb.vGreen
         
+        if lightness < (b * effectiveHue) + c:
+            MIN = (1 - saturation) * lightness
+            MAX = ((((1 - a) + (a * saturation)) * lightness) - ((1 - effectiveHue) * b * MIN)) / ((b * effectiveHue) + c)
+            MID = ((((1 - a) + (a * saturation)) * lightness) - (c * MAX)) / b
+        else:
+            MAX = lightness - (saturation * (lightness - 1))
+            MIN = (lightness - (MAX * ((b * effectiveHue) + c))) / (a + ((1 - effectiveHue) * b))
+            MID = ((lightness - (c * MAX)) - (a * MIN)) / b
+        
+        '''
+        if lightness < (b * effectiveHue) + c:
+            MAX = (((a * saturation) - (b * (1 - effectiveHue) * (1 - saturation))) * lightness) / (a * (effectiveHue + c))
+            MID = ((saturation * lightness) - (c * MAX)) / b
+            MIN = ((1 - saturation) * lightness) / a
+        else:
+            MIN = ((((lightness - saturation) * c) - b) + ((lightness - c) * b * effectiveHue * saturation)) / (c * ((1 + a) - effectiveHue))
+            MID = (((lightness - c) * saturation) - (a * MIN)) / b
+            MAX = (((1 - saturation) * lightness) / c) + saturation
+        '''
+        
+        '''
         if lightness < (effectiveHue + 1) * c:
             CMAX = (((2 - effectiveHue) * saturation) + (effectiveHue - 1)) * (lightness / (effectiveHue + 1))
             BMID = (saturation * lightness) - CMAX
@@ -148,6 +169,7 @@ class hsl(vector):
         MIN = AMIN / a
         MID = BMID / b
         MAX = CMAX / c
+        '''
         
         if (bigHue < 1):
             # red > green > blue
