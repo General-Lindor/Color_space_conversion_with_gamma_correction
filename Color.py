@@ -24,13 +24,13 @@ def dmin(a, b):
 
 class rgb(vector):
     
-    vRed = 0.2126
-    vGreen = 0.7152
-    vBlue = 0.0722
+    #vRed = 0.2126
+    #vGreen = 0.7152
+    #vBlue = 0.0722
     
-    #vRed = 1 / 3
-    #vGreen = 1 / 3
-    #vBlue = 1 / 3
+    vRed = 1 / 3
+    vGreen = 1 / 3
+    vBlue = 1 / 3
     
     def __init__(self, r, g, b):
         super(rgb, self).__init__((r, g, b))
@@ -204,21 +204,6 @@ class hsl(vector):
         
         return rgb(red, green, blue)
 
-'''
-class expect():
-    def __init__(self, h, s, l):
-        self.h = h
-        self.s = s
-        self.l = l
-        self.c = rgb(0, 0, 0)
-        self.e = 3
-    
-    def rep(self, crgb, chsl):
-        e = abs(self.h - chsl[0]) + abs(self.s - chsl[1]) + abs(self.l - chsl[2])
-        if e < self.e:
-            self.c = crgb
-'''
-
 if __name__ == "__main__":
     import numpy
     from PIL import Image
@@ -228,49 +213,10 @@ if __name__ == "__main__":
     
     size = 300
     data = numpy.zeros((size, size, 3), dtype = numpy.uint8)
-    
-    
     for lightness in range(size):
         for hue in range(size):
             col = tuple(map(conv, hsl(hue / size, 1, lightness / size).rgb()))
             data[size - lightness - 1, hue] = [col[0], col[1], col[2]]
-    
-    '''
-    print("Building...")
-    hashMap = {}
-    for lightness in range(size):
-        l = lightness / size
-        t = {}
-        hashMap[l] = t
-        for hue in range(size):
-            h = hue / size
-            q = expect(h, 1, l)
-            t[h] = q
-        hashMap[l] = t
-    
-    print("Sorting...")
-    for red in range(size):
-        print(red)
-        for green in range(size):
-            print(green)
-            for blue in range(size):
-                col = rgb(red / size, green / size, blue / size)
-                colhsl = col.hsl()
-                for t in hashMap.values():
-                    for q in t.values():
-                        q.rep(col, colhsl)
-    
-    print("Generating...")
-    for litem in hashMap.items():
-        lightness = litem[0]
-        t = litem[1]
-        for qitem in t.items():
-            hue = qitem[0]
-            q = qitem[1]
-            col = tuple(map(conv, q.c))
-            data[size - lightness - 1, hue] = [col[0], col[1], col[2]]
-    '''
-    
     image = Image.fromarray(data)
     image.show()
     print("Done!")

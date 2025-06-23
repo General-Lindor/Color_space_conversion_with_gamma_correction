@@ -161,3 +161,20 @@ class hsl(vector):
             blue = MID
         
         return rgb(red, green, blue)
+
+if __name__ == "__main__":
+    import numpy
+    from PIL import Image
+
+    def conv(x):
+        return int(255 * x)
+    
+    size = 300
+    data = numpy.zeros((size, size, 3), dtype = numpy.uint8)
+    for lightness in range(size):
+        for hue in range(size):
+            col = tuple(map(conv, hsl(hue / size, 1, lightness / size).rgb()))
+            data[size - lightness - 1, hue] = [col[0], col[1], col[2]]
+    image = Image.fromarray(data)
+    image.show()
+    print("Done!")

@@ -37,79 +37,64 @@ class rgb(vector):
         #self.b = b
     
     def hsv(self):
-        if self[0] > self[1]:
-            if self[1] > self[2]:
-                maxval = self[0]
-                if math.isclose(maxval, 0):
-                    return hsv(0, 0, 0)
-                midval = self[1]
-                minval = self[2]
-                d = maxval - minval
-                if math.isclose(d, 0):
-                    h = 0
-                else:
-                    h = (midval - minval) / (d * 6)
-            elif self[2] > self[0]:
-                maxval = self[2]
-                if math.isclose(maxval, 0):
-                    return hsv(0, 0, 0)
-                midval = self[0]
-                minval = self[1]
-                d = maxval - minval
-                if math.isclose(d, 0):
-                    h = 0
-                else:
-                    h = twothirds + ((midval - minval) / (d * 6))
+        
+        red = self[0]
+        green = self[1]
+        blue = self[2]
+        
+        if red > green:
+            if green > blue:
+                # red > green > blue
+                MIN = blue
+                MID = green
+                MAX = red
+                effectiveHue = (MID - MIN) / (MAX - MIN)
+                hue = (0 + effectiveHue) / 6
             else:
-                maxval = self[0]
-                if math.isclose(maxval, 0):
-                    return hsv(0, 0, 0)
-                midval = self[2]
-                minval = self[1]
-                d = maxval - minval
-                if math.isclose(d, 0):
-                    h = 0
+                if red > blue:
+                    # red > blue > green
+                    MIN = green
+                    MID = blue
+                    MAX = red
+                    effectiveHue = (MID - MIN) / (MAX - MIN)
+                    hue = (6 - effectiveHue) / 6
                 else:
-                    h = fivesixths + ((maxval - midval) / (d * 6))
+                    # blue > red > green
+                    MIN = green
+                    MID = red
+                    MAX = blue
+                    effectiveHue = (MID - MIN) / (MAX - MIN)
+                    hue = (4 + effectiveHue) / 6
         else:
-            if self[2] > self[1]:
-                maxval = self[2]
-                if math.isclose(maxval, 0):
-                    return hsv(0, 0, 0)
-                midval = self[1]
-                minval = self[0]
-                d = maxval - minval
-                if math.isclose(d, 0):
-                    h = 0
-                else:
-                    h = ahalf + ((maxval - midval) / (d * 6))
-            elif self[2] > self[0]:
-                maxval = self[1]
-                if math.isclose(maxval, 0):
-                    return hsv(0, 0, 0)
-                midval = self[2]
-                minval = self[0]
-                d = maxval - minval
-                if math.isclose(d, 0):
-                    h = 0
-                else:
-                    h = athird + ((midval - minval) / (d * 6))
+            if red > blue:
+                # green > red > blue
+                MIN = blue
+                MID = red
+                MAX = green
+                effectiveHue = (MID - MIN) / (MAX - MIN)
+                hue = (2 - effectiveHue) / 6
             else:
-                maxval = self[1]
-                if math.isclose(maxval, 0):
-                    return hsv(0, 0, 0)
-                midval = self[0]
-                minval = self[2]
-                d = maxval - minval
-                if math.isclose(d, 0):
-                    h = 0
+                if green > blue:
+                    # green > blue > red
+                    MIN = red
+                    MID = blue
+                    MAX = green
+                    effectiveHue = (MID - MIN) / (MAX - MIN)
+                    hue = (2 + effectiveHue) / 6
                 else:
-                    h = asixth + ((maxval - midval) / (d * 6))
-        s = d / maxval
-        v = maxval
-        return hsv(h, s, v)
+                    # blue > green > red
+                    MIN = red
+                    MID = green
+                    MAX = blue
+                    effectiveHue = (MID - MIN) / (MAX - MIN)
+                    hue = (4 - effectiveHue) / 6
+        
+        saturation = MAX - MIN
+        value = MAX
+        
+        return hsl(hue, saturation, lightness)
     
-    def hsl(self):
+    def hsv(self):
         return self.hsv().hsl()
     
     def isclose(self, other):
@@ -128,26 +113,64 @@ class hsv(vector):
         #self.v = v
     
     def rgb(self):
-        maxval = self[2]
-        minval = maxval * (1 - self[1])
-        if self[0] >= fivesixths:
-            midval = maxval - (((6 * self[0]) - 5) * (maxval - minval))
-            return rgb(maxval, minval, midval)
-        elif self[0] >= twothirds:
-            midval = minval + (((6 * self[0]) - 4) * (maxval - minval))
-            return rgb(midval, minval, maxval)
-        elif self[0] >= ahalf:
-            midval = maxval - (((6 * self[0]) - 3) * (maxval - minval))
-            return rgb(minval, midval, maxval)
-        elif self[0] >= athird:
-            midval = minval + (((6 * self[0]) - 2) * (maxval - minval))
-            return rgb(minval, maxval, midval)
-        elif self[0] >= asixth:
-            midval = maxval - (((6 * self[0]) - 1) * (maxval - minval))
-            return rgb(midval, maxval, minval)
+        
+        hue = self[0]
+        saturation = self[1]
+        value = self[2]
+        
+        MAX = value
+        MIN = MAX - saturation
+        
+        bigHue = 6 * hue
+        
+        if (bigHue < 1):
+            # red > green > blue
+            effectiveHue = bigHue
+            MID = saturation * effectiveHue + MIN
+            red = MIN
+            green = MID
+            blue = MAX
+        elif (bigHue < 2):
+            # green > red > blue
+            effectiveHue = 2 - bigHue
+            MID = saturation * effectiveHue + MIN
+            green = MIN
+            red = MID
+            blue = MAX
+        elif (bigHue < 3):
+            # green > blue > red
+            effectiveHue = bigHue - 2
+            MID = saturation * effectiveHue + MIN
+            green = MIN
+            blue = MID
+            red = MAX
+        elif (bigHue < 4):
+            # blue > green > red
+            effectiveHue = 4 - bigHue
+            MID = saturation * effectiveHue + MIN
+            blue = MIN
+            green = MID
+            red = MAX
+        elif (bigHue < 5):
+            # blue > red > green
+            effectiveHue = bigHue - 4
+            MID = saturation * effectiveHue + MIN
+            blue = MIN
+            red = MID
+            green = MAX
         else:
-            midval = minval + (6 * self[0] * (maxval - minval))
-            return rgb(maxval, midval, minval)
+            # red > blue > green
+            effectiveHue = 6 - bigHue
+            MID = saturation * effectiveHue + MIN
+            red = MIN
+            blue = MID
+            green = MAX
+        
+        red = red % 1
+        green = green % 1
+        blue = blue % 1
+        
+        return rgb(red, green, blue)
     
     def hsl(self):
         l = self[2] * (1 - (self[1] * 0.5))

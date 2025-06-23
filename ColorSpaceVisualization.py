@@ -15,6 +15,7 @@ import Color_hybridGamma
 import Color_night
 import Color_math
 import Color_gamma
+import Color
 
 def conv(x):
     return int(255 * x)
@@ -27,7 +28,7 @@ def main(hsl, name, last = False):
             col = tuple(map(conv, hsl(hue / size, 1, lightness / size).rgb()))
             data[size - lightness - 1, hue] = [col[0], col[1], col[2]]
     image = Image.fromarray(data)
-    image.save("C:\\Users\\Jean-Luc Picard\\Pictures\\ColorSpaceVisualization\\" + name + ".png")
+    image.save("C:\\Users\\admin\\Pictures\\ColorSpaceVisualization\\" + name + ".png")
     image.show()
     print(name + " done.")
 
@@ -37,6 +38,7 @@ main(Color_hybrid.hsl, "hybrid")
 main(Color_hybridGamma.hsl, "hybridGamma")
 main(Color_night.hsl, "night")
 main(Color_math.hsl, "math")
-main(Color_gamma.hsl, "gamma", True)
+main(Color_gamma.hsl, "gamma")
+main(Color.hsl, "color", True)
 
 input("finished")
